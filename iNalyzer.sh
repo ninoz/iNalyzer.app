@@ -336,11 +336,12 @@ if [ "$InalyzerMode" == "static" ]; then
 		if [ -f "$decipa" ]; then
 			echo "decrypted IPA already present"
 			echo "We need to class dump the binaries off device, copy the following IPA to a MACOS image"
-			echo "/opt/classdumper/clean.sh"
-			echo "scp -P 2222 root@127.0.0.1:"$MainappSandbox"Documents/decrypted-app.ipa /opt/classdumper/Payload/"
-			echo "Extract the ipa: unzip decrypted-app.ipa "
-			echo "Run class dump against the directory: dumpheaders.sh"
-			echo "SCP the headers back up to the device:  scp -r -P 2222 /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
+			echo "    /opt/classdumper/clean.sh"
+			echo "    scp -P 2222 root@127.0.0.1:"$MainappSandbox"Documents/decrypted-app.ipa /opt/classdumper/Payload/"
+			echo "    unzip /opt/classdumper/Payload/decrypted-app.ipa -d /opt/classdumper/Payload/"
+			echo "    /opt/classdumper/dumpheaders.sh"
+			echo "SCP the headers back to the device when complete:"
+			echo "    scp -r -P 2222 /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
 			unzip -j -qq -B $MainappSandbox"Documents/decrypted-app.ipa" -d   "${InalyzerWorkdir}/static/decryptedBinaries/" -x *.png
 			echo "come back here and enter to continue"
 		else
@@ -352,11 +353,12 @@ if [ "$InalyzerMode" == "static" ]; then
 			read pause			
 			unzip -j -qq -B $MainappSandbox"Documents/decrypted-app.ipa" -d   "${InalyzerWorkdir}/static/decryptedBinaries/" -x *.png
 			echo "We need to class dump the binaries off device, copy the following IPA to a MACOS image"
-			echo "/opt/classdumper/clean.sh"
-			echo "scp -P 2222 root@127.0.0.1:"$MainappSandbox"Documents/decrypted-app.ipa /opt/classdumper/Payload/"
-			echo "Extract the ipa: unzip decrypted-app.ipa "
-			echo "Run class dump against the directory: dumpheaders.sh"
-			echo "SCP the headers back up to the device:  scp -r -P 2222 /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
+			echo "    /opt/classdumper/clean.sh"
+			echo "    scp -P 2222 root@127.0.0.1:"$MainappSandbox"Documents/decrypted-app.ipa /opt/classdumper/Payload/"
+                        echo "    unzip /opt/classdumper/Payload/decrypted-app.ipa -d /opt/classdumper/Payload/"
+                        echo "    /opt/classdumper/dumpheaders.sh"
+			echo "SCP the headers back to the device when complete:"
+			echo "    scp -r -P 2222 /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
 			echo "come back here and enter to continue"
 		fi
 	elif [ $isEncrypted == "0" ]; then
@@ -369,8 +371,10 @@ if [ "$InalyzerMode" == "static" ]; then
 		IFS=$OIFS
 			echo "We need to class dump the binaries off device, copy the following IPA to a MACOS image"
 			echo "scp -P 2222 -r root@127.0.0.1:${InalyzerWorkdir}/static/decryptedBinaries/ /opt/classdumper//Payload/"
-			echo "Run class dump against the directory: dumpheaders.sh"
-			echo "SCP the headers back up to the device:  scp -r -P 2222  /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
+                        echo "    unzip /opt/classdumper/Payload/decrypted-app.ipa -d /opt/classdumper/Payload/"
+                        echo "    /opt/classdumper/dumpheaders.sh"
+			echo "SCP the headers back to the device when complete:"  
+			echo "     scp -r -P 2222  /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
 			echo "come back here and enter to continue"
 	else
         	echo "Error: Unknown encryption status, otool.sh output: $isEncrypted"
