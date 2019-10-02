@@ -247,6 +247,7 @@ if [ "$InalyzerMode" == "dynamic" ]; then
 	sed -i -- "s/@INDIR@/.\/data/g" "${InalyzerWorkdir}/dynamic/doxygen/dox.template"
 
 	echo "===Dump keychain"
+	echo "Watch your device for a promt to enter your pin!!"
 	../tools/keychaindumper++ -a | tr '\n' '~' | sed 's/~~/;/g' > ${InalyzerWorkdir}/dynamic/data/keychaindump
 	OIFS=$IFS
 	IFS=$'|'
