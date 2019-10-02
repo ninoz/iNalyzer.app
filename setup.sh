@@ -10,6 +10,7 @@ echo "deb https://level3tjg.github.io/ ./" >> /etc/apt/sources.list.d/cydia.list
 echo "deb https://jakeashacks.ga/cydia/ ./" >> /etc/apt/sources.list.d/cydia.list
 
 apt-get -y --allow-unauthenticated update
+apt-get -y --allow-unauthenticated update
 
 apt-get -y --allow-unauthenticated install perl
 apt-get -y --allow-unauthenticated install git
@@ -18,7 +19,7 @@ apt-get -y --allow-unauthenticated install sqlite3
 apt-get -y --allow-unauthenticated install openssl
 apt-get -y --allow-unauthenticated install com.jakeashacks.jtool
 apt-get -y --allow-unauthenticated install cycript
-apt-get -y --allow-unauthenticated com.level3tjg.bfdecrypt
+apt-get -y --allow-unauthenticated install com.level3tjg.bfdecrypt
 apt-get -y --allow-unauthenticated install com.appsec-labs.inalyzer
 apt-get -y --allow-unauthenticated install com.bingner.plutil
 
