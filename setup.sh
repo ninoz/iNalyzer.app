@@ -23,6 +23,7 @@ apt-get -y --allow-unauthenticated install com.level3tjg.bfdecrypt
 apt-get -y --allow-unauthenticated install com.appsec-labs.inalyzer
 apt-get -y --allow-unauthenticated install com.bingner.plutil
 
+dpkg -i /Applications/iNalyzer.app/tools/class_dump_ios.deb
 
 mv /Applications/iNalyzer.app/ /Applications//iNalyzer.appBKUP/ 
 cd /Applications/

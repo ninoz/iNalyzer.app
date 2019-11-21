@@ -333,34 +333,21 @@ if [ "$InalyzerMode" == "static" ]; then
 	ulimit unlimited
 	if [ "$isEncrypted" == "1" ]; then
 		decipa="${MainappSandbox}Documents/decrypted-app.ipa"
-		echo "DEBUG: $decipa"
 		if [ -f "$decipa" ]; then
 			echo "decrypted IPA already present"
-			echo "We need to class dump the binaries off device, copy the following IPA to a MACOS image"
-			echo "    /opt/classdumper/clean.sh"
-			echo "    scp -P 2222 root@127.0.0.1:"$MainappSandbox"Documents/decrypted-app.ipa /opt/classdumper/Payload/"
-			echo "    unzip /opt/classdumper/Payload/decrypted-app.ipa -d /opt/classdumper/Payload/"
-			echo "    /opt/classdumper/dumpheaders.sh"
-			echo "SCP the headers back to the device when complete:"
-			echo "    scp -r -P 2222 /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
+			echo "Extracting IPA..."
 			unzip -j -qq -B $MainappSandbox"Documents/decrypted-app.ipa" -d   "${InalyzerWorkdir}/static/decryptedBinaries/" -x *.png
-			echo "come back here and enter to continue"
+			echo "Done!"
 		else
 			echo "We need to manually decrypt the App"
 			echo "Go to setting and then BFDecrypt"
 			echo "Select you app and then launch it"
 			echo "you will get a message once its been decrypted"
 			echo "come back here and enter to continue"
-			read pause			
+			read pause	
+			echo "Extracting IPA..."			
 			unzip -j -qq -B $MainappSandbox"Documents/decrypted-app.ipa" -d   "${InalyzerWorkdir}/static/decryptedBinaries/" -x *.png
-			echo "We need to class dump the binaries off device, copy the following IPA to a MACOS image"
-			echo "    /opt/classdumper/clean.sh"
-			echo "    scp -P 2222 root@127.0.0.1:"$MainappSandbox"Documents/decrypted-app.ipa /opt/classdumper/Payload/"
-                        echo "    unzip /opt/classdumper/Payload/decrypted-app.ipa -d /opt/classdumper/Payload/"
-                        echo "    /opt/classdumper/dumpheaders.sh"
-			echo "SCP the headers back to the device when complete:"
-			echo "    scp -r -P 2222 /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
-			echo "come back here and enter to continue"
+			echo "Done!"
 		fi
 	elif [ $isEncrypted == "0" ]; then
 		echo "Binaries are not encrypted, coping them to the decryptedBinaries folder"
@@ -370,17 +357,9 @@ if [ "$InalyzerMode" == "static" ]; then
 			cp -f "$file" "${InalyzerWorkdir}/static/decryptedBinaries/"
 		done 
 		IFS=$OIFS
-			echo "We need to class dump the binaries off device, copy the following IPA to a MACOS image"
-			echo "scp -P 2222 -r root@127.0.0.1:${InalyzerWorkdir}/static/decryptedBinaries/ /opt/classdumper//Payload/"
-                        echo "    unzip /opt/classdumper/Payload/decrypted-app.ipa -d /opt/classdumper/Payload/"
-                        echo "    /opt/classdumper/dumpheaders.sh"
-			echo "SCP the headers back to the device when complete:"  
-			echo "     scp -r -P 2222  /opt/classdumper/headers/* root@127.0.0.1:$InalyzerWorkdir/static/data/"
-			echo "come back here and enter to continue"
 	else
         	echo "Error: Unknown encryption status, otool.sh output: $isEncrypted"
 	fi
-	read waiting
 	echo "===Binary analysis on:"
 	ls ${InalyzerWorkdir}/static/decryptedBinaries/
 	echo "======"
@@ -401,6 +380,8 @@ if [ "$InalyzerMode" == "static" ]; then
 			echo "Dumping strings"
 			f_base=$(basename "$f")
 			./strings.sh "$f" "${InalyzerWorkdir}/static/data/__strings_${f_base}.md"
+			echo "Dumping classes"
+			classdumpios -H  -o "$InalyzerWorkdir/static/data/" "$f" 
 		fi
 	done
 	echo " "
