@@ -22,8 +22,6 @@ nslog <bundleGUID>	- This is broken im not fixing it
 cycript <bundleGUID>	- This is broken im not fixing it
 static <bundleGUID>	- Analyses the static application folder, looks at the binaries
 
-When The static and dyanmic modes are complete you need to copy the archive over to your PC for processing with doxgen
-
 Original info:
 https://appsec-labs.com/inalyzer/
 https://appsec-labs.com/tools/iNalyzer-User-Guide.pdf
