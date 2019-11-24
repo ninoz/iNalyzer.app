@@ -23,8 +23,6 @@ apt-get -y --allow-unauthenticated install com.level3tjg.bfdecrypt
 apt-get -y --allow-unauthenticated install com.appsec-labs.inalyzer
 apt-get -y --allow-unauthenticated install com.bingner.plutil
 
-dpkg -i /Applications/iNalyzer.app/tools/class_dump_ios.deb
-
 mv /Applications/iNalyzer.app/ /Applications//iNalyzer.appBKUP/ 
 cd /Applications/
 git clone https://github.com/ninoz/iNalyzer.app.git
@@ -34,4 +32,5 @@ chmod +x iNalyzer.sh
 chmod +x scripts/*.sh
 chmod +x tools/*
 ldid -Stools/entitlements.xml tools/keychaindumper++
+dpkg -i /Applications/iNalyzer.app/tools/class_dump_ios.deb
 killall -9 SpringBoard
