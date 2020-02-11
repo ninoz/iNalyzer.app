@@ -10,6 +10,8 @@ http://www.doxygen.org/
 
 Usage:
 
+call using /Applications/iNalyzer.App/iNalyzer <arguments>
+
 list			- List all of the applications and their bundleGUID
 clean			- Clean up the iNalyzer working directory
 version			- Print the version
