@@ -15,7 +15,7 @@ if [ "$func" == "encryption" ]; then
 		otool -l "$binary" | grep -A 4 LC_ENCRYPTION_INFO
 	else
 		#echo "otool didn't find LC_ENCRYPTION_INFO, probably the otool isn't updated. Trying to run jtool..."
-		jtool -l -arch 0 "$binary" | grep LC_ENCRYPTION_INFO
+		../tools/jtool2 -l "$binary" | grep LC_ENCRYPTION_INFO
 	fi
 elif [ "$func" == "is_encrypted" ]; then
 	output=$(./otool.sh encryption "$binary" | grep -E "(cryptid.*1|Encryption: 1)")
