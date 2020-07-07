@@ -365,7 +365,8 @@ if [ "$InalyzerMode" == "static" ]; then
 	echo "======"
 	for f in ${InalyzerWorkdir}/static/decryptedBinaries/*
 	do
-		(file $f | grep "executable")
+		echo "DEBUG FILE: " $f
+		(file "$f" | grep "executable")
 		status=$?
 		echo -n "."
 		if [ "$status" == "0" ]; then
