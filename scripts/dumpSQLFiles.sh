@@ -37,7 +37,7 @@ for source in ${dblist}; do
 
 	dbname=$(echo ${source} | tr '/' '\n' | tail -1)
 
-	echo "\section Table${i} ${dbname}" >> ${outfile}
+	echo "Table${i} ${dbname}" >> ${outfile}
 	echo "=======" >> ${outfile}
  #       echo "Path: ${source}" >> $outfile
 	i=$(( i+1 ))

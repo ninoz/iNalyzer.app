@@ -252,6 +252,7 @@ if [ "$InalyzerMode" == "dynamic" ]; then
 	OIFS=$IFS
 	IFS=$'|'
 	for file in $appExecutablesFullPath; do
+		#echo "Debug: " $file
 		echo -n "."
 		./entitlements.sh "$file" "${InalyzerWorkdir}/dynamic/data/__entitlements.md.tmp"
 		./dumpKeychain.sh "${InalyzerWorkdir}/dynamic/data/__entitlements.md.tmp" "${InalyzerWorkdir}/dynamic/data/__keychain.md" "${InalyzerWorkdir}/dynamic/data/keychaindump"
@@ -360,29 +361,27 @@ if [ "$InalyzerMode" == "static" ]; then
 	else
         	echo "Error: Unknown encryption status, otool.sh output: $isEncrypted"
 	fi
-	echo "===Binary analysis on:"
+	echo "===Performing Binary analysis on:"
 	ls ${InalyzerWorkdir}/static/decryptedBinaries/
 	echo "======"
 	for f in ${InalyzerWorkdir}/static/decryptedBinaries/*
 	do
-		echo "DEBUG FILE: " $f
-		(file "$f" | grep "executable")
+		echo "** Detecting file type on: " $f
+		(file "$f" | grep -q -i "executable\|dynamically\ linked\ shared\ library")
 		status=$?
-		echo -n "."
 		if [ "$status" == "0" ]; then
-			echo ""
-			echo $f "is a binary"
-			echo "Fetching binary info"
+			echo "--" $f " is a binary or dylib"
+			echo "--- Fetching binary info"
 			./binaryInfo.sh "$f" "${InalyzerWorkdir}/static/data/__binaryInfo.md"
-			echo "Fetching entitlements"
+			echo "--- Fetching entitlements"
 			./entitlements.sh "$f" "${InalyzerWorkdir}/static/data/__entitlements.md"
-			echo "Looking for interesting symbols"
+			echo "--- Looking for interesting symbols"
 			./symbols.sh "$f" "${InalyzerWorkdir}/static/data/__symbols.md"
-			echo "Dumping strings"
+			echo "--- Dumping strings"
 			f_base=$(basename "$f")
 			./strings.sh "$f" "${InalyzerWorkdir}/static/data/__strings_${f_base}.md"
-			echo "Dumping classes"
-			classdumpios -H  -o "$InalyzerWorkdir/static/data/" "$f" 
+			echo "--- Dumping classes"
+			classdumpios -H  -o "$InalyzerWorkdir/static/data/" "$f" > /tmp/out 2>&1 
 		fi
 	done
 	echo " "
