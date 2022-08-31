@@ -7,7 +7,7 @@ fi
 
 echo "deb https://appsec-labs.com/cydia/ ./" >> /etc/apt/sources.list.d/cydia.list
 echo "deb https://level3tjg.xyz/repo ./" >> /etc/apt/sources.list.d/cydia.list
-echo "deb https://jakeashacks.net/cydia/ ./" >> /etc/apt/sources.list.d/cydia.list
+echo "deb https://jakeajames.github.io/ ./" >> /etc/apt/sources.list.d/cydia.list
 
 apt-get -y --allow-unauthenticated update
 apt-get -y --allow-unauthenticated update
