@@ -6,7 +6,7 @@ if [[ "$running" == "1" ]]; then
 fi
 
 echo "deb https://appsec-labs.com/cydia/ ./" >> /etc/apt/sources.list.d/cydia.list
-echo "deb https://level3tjg.xyz/repo ./" >> /etc/apt/sources.list.d/cydia.list
+echo "deb https://level3tjg.me/repo ./" >> /etc/apt/sources.list.d/cydia.list
 echo "deb https://jakeashacks.net/cydia/ ./" >> /etc/apt/sources.list.d/cydia.list
 
 apt-get -y --allow-unauthenticated update
